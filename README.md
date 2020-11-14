@@ -9,6 +9,7 @@ E-commerce site using custom php MVC.
 # Installation
 
 ```
+
 composer install
 
 ```
@@ -16,6 +17,7 @@ composer install
 ## Setup Environment Variables
 
 ```
+
 .env.example -> .env
 
 ```
@@ -23,5 +25,7 @@ composer install
 ## Production
 
 ```
+
 APP_DEBUG=Off
-``
+
+```
