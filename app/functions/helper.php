@@ -26,7 +26,7 @@ function asset($path) {
 * */
 
 function url($url) {
-  return URL_ROOT.'/'.$url;
+  return URL_ROOT.$url;
 }
 
 

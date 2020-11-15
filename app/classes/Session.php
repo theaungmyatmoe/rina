@@ -63,7 +63,7 @@ class Session
     if (!empty($value)) {
       self::replace($key, $value);
     } else {
-      echo "<p class='alert alert-success text-white'>".self::get($key)."</p>";
+      echo self::get($key);
       self::remove($key);
     }
   }

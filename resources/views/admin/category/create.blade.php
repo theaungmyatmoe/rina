@@ -3,11 +3,12 @@
 @section('content')
   <div class="container my-5">
     <h1 class="text-center mb-3">Create Category</h1>
-    <form action="{{url('admin/category/create')}}" method="post" enctype="multipart/form-data">
-      
-      
+    @if(App\Classes\Session::has("errors"))
+    {{App\Classes\Session::flash("errors")}}
+    @endif
+    <form action="{{url('/admin/category/create')}}" method="post" enctype="multipart/form-data">
+
       <input type="hidden" name="token" value="{{csrf_field()}}">
-      
       
       <div class="form-group">
         <label class="mb-3">Enter Category Name</label>
