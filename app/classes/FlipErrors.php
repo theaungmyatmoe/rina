@@ -20,8 +20,9 @@ class FlipErrors
     *
     * @var Check Mode
     * @default On
+    * 
     * */
-    switch($mode) {
+    switch ($mode) {
       case $mode === "On":
         $this->whoops = new Run;
         $this->getFlipErrors();

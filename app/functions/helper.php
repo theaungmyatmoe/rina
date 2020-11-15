@@ -2,10 +2,38 @@
 
 use Philo\Blade\Blade;
 
-function view($path,$data=[]){
-$views = APP_ROOT.'/resources/views';
-$cache = APP_ROOT.'/bootstrap/cache';
+/**
+* @return Blade
+* */
 
-$blade = new Blade($views, $cache);
-echo $blade->view()->make($path)->render();
+function view($path, $data = []) {
+  $views = APP_ROOT.'/resources/views';
+  $cache = APP_ROOT.'/bootstrap/cache';
+
+  $blade = new Blade($views, $cache);
+  echo $blade->view()->make($path)->render();
+}
+
+/**
+* @return asset->path
+* */
+function asset($path) {
+  return URL_ROOT.'/assets/'.$path;
+}
+
+/**
+* @return Route url
+* */
+
+function url($url) {
+  return URL_ROOT.'/'.$url;
+}
+
+
+/**
+* @return array
+* */
+
+function beautify($data) {
+  echo '<pre>'.print_r($data, true).'</pre>';
 }

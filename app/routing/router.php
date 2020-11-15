@@ -1,5 +1,7 @@
 <?php
 
+/* Routtes For Web */
+
 use App\Routing;
 use App\Routing\RouterDispatcher ;
 
@@ -12,4 +14,13 @@ $router->setBasePath('/E-Commerence/public');
 // method,uri,controller,route name
 
 $router->map('GET','/','App\Controllers\IndexController@show','Home Route');
+
+//Admin Home
+$router->map('GET','/admin','App\Controllers\AdminController@index','Admin Home');
+
+// Admin Category
+$router->map('GET','/admin/category/create','App\Controllers\CategoryController@show','Category Route');
+$router->map('POST','/admin/category/create','App\Controllers\CategoryController@store','Category Store');
+
+
 new RouterDispatcher($router);

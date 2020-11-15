@@ -18,8 +18,8 @@ class RouterDispatcher
     $this->controller = $controller;
     $this->method = $method;
     
-    if(is_callable([new $this->controller,$this->method])){
-    call_user_func_array([$this->controller,$this->method],$this->match['params']);
+    if(is_callable([$this->controller,$this->method])){
+    call_user_func_array([new $this->controller,$this->method],$this->match['params']);
     }else{
       echo "$this->controller is not callable!";
     }
