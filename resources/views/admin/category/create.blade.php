@@ -3,10 +3,13 @@
 @section('content')
   <div class="container my-5">
     <h1 class="text-center mb-3">Create Category</h1>
-    <form action="{{url('admin/category/create')}}" method="post">
+    <form action="{{url('admin/category/create')}}" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label class="mb-3">Enter Category Name</label>
         <input type="text" class="form-control" name="name">
+      </div>
+      <div class="form-group">
+        <input type="file" class="form-control" name="file">
       </div>
 <button type="submit" class="btn btn-outline-success float-right mt-2">Create</button>
     </form>

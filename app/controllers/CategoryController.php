@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Classes\Request;
 class CategoryController extends BaseController
 {
   
@@ -9,7 +9,8 @@ class CategoryController extends BaseController
     view('admin/category/create');
   }
   public function store(){
-    beautify($_POST);
-    echo 'store';
+    beautify(Request::all()->file);
   }
 }
+
+  
