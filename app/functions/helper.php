@@ -1,7 +1,7 @@
 <?php
 
 use Philo\Blade\Blade;
-
+use App\Classes\CSRF;
 /**
 * @return Blade
 * */
@@ -37,3 +37,11 @@ function url($url) {
 function beautify($data) {
   echo '<pre>'.print_r($data, true).'</pre>';
 }
+
+/**
+ * @return csrf token
+ * */
+ 
+ function csrf_field(){
+   return CSRF::_token();
+ }

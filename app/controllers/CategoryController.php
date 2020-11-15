@@ -1,7 +1,8 @@
 <?php
-
 namespace App\Controllers;
 use App\Classes\Request;
+use App\Classes\CSRF;
+
 class CategoryController extends BaseController
 {
   
@@ -9,7 +10,9 @@ class CategoryController extends BaseController
     view('admin/category/create');
   }
   public function store(){
-    beautify(Request::all()->file);
+    $post = Request::get('post');
+    var_dump(CSRF::checkToken($post->token));
+    beautify($post);
   }
 }
 
