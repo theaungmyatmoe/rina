@@ -1,4 +1,6 @@
 <?php
 
 require_once '../bootstrap/init.php';
-// unset($_SESSION['token']);
+use App\Classes\Validator;
+$valid = new Validator();
+var_dump($valid->maxlength(5,"id","ade"));
