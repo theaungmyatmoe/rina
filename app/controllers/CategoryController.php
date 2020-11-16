@@ -4,6 +4,7 @@ use App\Classes\Request;
 use App\Classes\CSRF;
 use App\Classes\Session;
 use App\Classes\Redirect;
+use App\Classes\FileHandler;
 class CategoryController extends BaseController
 {
 
@@ -14,9 +15,12 @@ class CategoryController extends BaseController
     $post = Request::get('post');
     $csrf = CSRF::checkToken($post->token);
     if ($csrf) {
-      echo 1;
+    
+    $moveFile = new FileHandler();
+    echo($moveFile->move(Request::get('file')));
+
     } else {
-      Session::flash('errors','CSRF Not Found!');
+      Session::flash('errors', 'CSRF Not Found!');
       Redirect::back();
     }
   }
