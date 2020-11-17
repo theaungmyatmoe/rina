@@ -8,6 +8,16 @@
     <div class="col">
       <div class="container">
         <form action="<?php echo e(url('/admin/category/create')); ?>" method="post">
+          <?php if($errors): ?>
+          <?php $__currentLoopData = $errors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <div class="alert alert-danger">
+            <?php echo e($error); ?>
+
+
+          </div>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php endif; ?>
+          <input type="hidden" name="_token" value="<?php echo e(csrf_field()); ?>">
           <div class="form-group">
             <label>Categroy Name</label>
             <input type="text" class="form-control mt-3" name="name" placeholder="Type Category Name">
@@ -23,7 +33,7 @@
           <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <li class="list-group-item">
             <a href=""><?php echo e($cat->name); ?></a>
-            
+
             <!-- Edit and Delete Button Of Cat -->
             <a href="" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <a href="" class="btn btn-info float-right btn-sm">Edit</a>

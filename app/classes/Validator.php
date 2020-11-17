@@ -7,8 +7,8 @@ use Illuminate\Database\Capsule\Manager as DB;
 */
 class Validator
 {
-  private $errors = [];
-  private $error_msgs = [
+  public $errors = [];
+  public $error_msgs = [
     "unique" => "The :field must be unique",
     "number" => "The :field must be number",
     "string" => "The :field must be string",
@@ -24,7 +24,7 @@ class Validator
   * @param $data getData
   * @param $rules getRules
   * */
-  public function checkData($data, $rules) {
+  public function checkData($data, $rules = []) {
     foreach ($data as $column => $value) {
       if (in_array($column, array_keys($rules))) {
         $this->doValidation([
@@ -59,8 +59,8 @@ class Validator
   *
   */
   public function unique($table, $field, $value) {
-    if (!empty($value) && !$value != null) {
-      return DB::table($table)->where($field, $value)->exists();
+    if($value != null and !empty($value)){
+      return !DB::table($table)->where($field,$value)->exists() ? true : false; 
     }
   }
   /**

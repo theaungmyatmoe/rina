@@ -9,6 +9,15 @@
     <div class="col">
       <div class="container">
         <form action="{{url('/admin/category/create')}}" method="post">
+          @if($errors)
+          @foreach($errors as $error)
+          <div class="alert alert-danger">
+            {{$error}}
+
+          </div>
+          @endforeach
+          @endif
+          <input type="hidden" name="_token" value="{{csrf_field()}}">
           <div class="form-group">
             <label>Categroy Name</label>
             <input type="text" class="form-control mt-3" name="name" placeholder="Type Category Name">
@@ -24,7 +33,7 @@
           @foreach($cats as $cat)
           <li class="list-group-item">
             <a href="">{{$cat->name}}</a>
-            
+
             <!-- Edit and Delete Button Of Cat -->
             <a href="" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <a href="" class="btn btn-info float-right btn-sm">Edit</a>
