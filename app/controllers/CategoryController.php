@@ -4,24 +4,15 @@ use App\Classes\Request;
 use App\Classes\CSRF;
 use App\Classes\Session;
 use App\Classes\Redirect;
-use App\Classes\FileHandler;
+use App\Models\Category;
 class CategoryController extends BaseController
 {
 
   public function show() {
-    view('admin/category/create');
+    $cats = Category::all();
+    view('admin/category/create', compact("cats"));
   }
   public function store() {
-    $post = Request::get('post');
-    $csrf = CSRF::checkToken($post->token);
-    if ($csrf) {
-    
-    $moveFile = new FileHandler();
-    echo($moveFile->move(Request::get('file')));
-
-    } else {
-      Session::flash('errors', 'CSRF Not Found!');
-      Redirect::back();
-    }
+    beautify(Request::get('post'));
   }
 }

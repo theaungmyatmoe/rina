@@ -11,7 +11,7 @@ function view($path, $data = []) {
   $cache = APP_ROOT.'/bootstrap/cache';
 
   $blade = new Blade($views, $cache);
-  echo $blade->view()->make($path)->render();
+  echo $blade->view()->make($path,$data)->render();
 }
 
 /**

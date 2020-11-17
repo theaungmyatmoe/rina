@@ -13,6 +13,7 @@
     "philo/laravel-blade": "^3.1",
     "illuminate/database": "5.*",
     "phpmailer/phpmailer": "^6.1",
-    "filp/whoops": "^2.9"
+    "filp/whoops": "^2.9",
+    "illuminate/events": "5.*"
   }
 }
