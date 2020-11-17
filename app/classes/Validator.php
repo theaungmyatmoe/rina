@@ -7,17 +7,51 @@ use Illuminate\Database\Capsule\Manager as DB;
 */
 class Validator
 {
-private $errors = [];
-private $error_msgs = [
-  "unique"=>"The :field must be unique",
-  "number"=>"The :field must be number",
-  "string"=>"The :field must be string",
-  "mixed"=>"The :field must be A-Za-z",
-  "mixed"=>"The :field must be mixed",
-  "minLength"=>"The :field must have of :length",
-  "maxLength"=>"The :field must not have of :length",
-  
+  private $errors = [];
+  private $error_msgs = [
+    "unique" => "The :field must be unique",
+    "number" => "The :field must be number",
+    "string" => "The :field must be string",
+    "email" => "The :field must be email",
+    "mixed" => "The :field must be A-Za-z",
+    "mixed" => "The :field must be mixed",
+    "minLength" => "The :field must have of :length of characters.",
+    "maxLength" => "The :field must not have of :length characters.",
+
   ];
+
+  /**
+  * @param $data getData
+  * @param $rules getRules
+  * */
+  public function checkData($data, $rules) {
+    foreach ($data as $column => $value) {
+      if (in_array($column, array_keys($rules))) {
+        $this->doValidation([
+          "field" => $column,
+          "value" => $value,
+          "rules" => $rules[$column]
+        ]);
+      }
+    }
+  }
+  public function doValidation($data) {
+    $column = $data["field"];
+    foreach ($data['rules'] as $ruleKey => $ruleVal) {
+      $valid = call_user_func_array([self::class, $ruleKey], [$ruleVal, $column, $data['value']]);
+      if (!$valid) {
+        $this->setErrs(
+          $column,
+          str_replace([":field", ":length"],
+            [$column,$ruleVal],
+            $this->error_msgs[$ruleKey],
+          )
+        );
+      }
+    }
+  }
+
+
   /**
   * @param $table DB table name
   * @param $field DB field || column
@@ -79,21 +113,29 @@ private $error_msgs = [
     }
     return false;
   }
-  
+
   public function mixed($length, $field, $value) : bool {
     if (!empty($value) && $value != null) {
       return preg_match("/^(.)+$/", $value);
     }
     return false;
   }
-  
-  public function setErrs($key=null,$error){
-    if($key){
+
+  public function setErrs($key = null, $error) {
+    if ($key) {
       $this->errors[$key] = $error;
-    }else {
+    } else {
       $this->errors[] = $error;
     }
-    
+
+  }
+
+  public function hasErrors() {
+    return count($this->errors) > 0 ? true : false;
+  }
+
+  public function getErrors() {
+    return $this->errors;
   }
 
 
