@@ -2,6 +2,10 @@
 
 use Philo\Blade\Blade;
 use App\Classes\CSRF;
+use Carbon\Carbon;
+use Illuminate\Database\Capsule\Manager as DB;
+use voku\helper\Paginator;
+
 /**
 * @return Blade
 * */
@@ -26,7 +30,7 @@ function asset($path) {
 * */
 
 function url($url) {
-  return URL_ROOT.$url;
+  echo URL_ROOT.$url;
 }
 
 
@@ -43,7 +47,7 @@ function beautify($data) {
 * */
 
 function csrf_field() {
-  return CSRF::_token();
+  echo CSRF::_token();
 }
 
 /**
@@ -58,4 +62,17 @@ function slug($str, $replace = [], $delimiter = '-') {
   $clean = strtolower(trim($clean, '-'));
   $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
   return $clean;
+}
+
+function paginate($tableName, $record) {
+  // $carbon = new Carbon($db[0]->created_at);
+  $pages = new Paginator($record, 'p');
+  // Count All Rows
+
+  $rowCount = DB::table($tableName)->get();
+  $data = DB::select("SELECT * from $tableName".$pages->get_limit());
+  //$date = $carbon->toDateTimeString();
+  $pages->set_total(count($rowCount));
+  echo $pages->page_links();
+
 }
