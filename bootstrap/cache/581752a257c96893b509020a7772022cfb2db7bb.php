@@ -6,9 +6,9 @@
 </div>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php endif; ?>
+
 <?php if($success): ?>
 <div class="alert alert-success">
-  <?php echo e($success); ?>
-
+  <?php echo e($success); ?> 
 </div>
 <?php endif; ?><?php /**PATH /storage/emulated/0/htdocs/E-Commerence/resources/views/layouts/errors.blade.php ENDPATH**/ ?>

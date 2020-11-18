@@ -17,7 +17,7 @@
           </div>
           <div class="form-group">
             <div class="form-control border-0">
-              <input type="submit" value="Create" class="btn btn-success float-right">
+              <input type="submit" value="Create" class="btn btn-outline-success float-right">
             </div>
           </div>
 
