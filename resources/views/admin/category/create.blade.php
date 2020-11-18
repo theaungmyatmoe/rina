@@ -9,14 +9,7 @@
     <div class="col">
       <div class="container">
         <form action="{{url('/admin/category/create')}}" method="post">
-          @if($errors)
-          @foreach($errors as $error)
-          <div class="alert alert-danger">
-            {{$error}}
-
-          </div>
-          @endforeach
-          @endif
+      @include('layouts.errors')
           <input type="hidden" name="_token" value="{{csrf_field()}}">
           <div class="form-group">
             <label>Categroy Name</label>

@@ -8,15 +8,7 @@
     <div class="col">
       <div class="container">
         <form action="<?php echo e(url('/admin/category/create')); ?>" method="post">
-          <?php if($errors): ?>
-          <?php $__currentLoopData = $errors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <div class="alert alert-danger">
-            <?php echo e($error); ?>
-
-
-          </div>
-          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-          <?php endif; ?>
+      <?php echo $__env->make('layouts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
           <input type="hidden" name="_token" value="<?php echo e(csrf_field()); ?>">
           <div class="form-group">
             <label>Categroy Name</label>
