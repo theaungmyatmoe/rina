@@ -11,7 +11,7 @@ function view($path, $data = []) {
   $cache = APP_ROOT.'/bootstrap/cache';
 
   $blade = new Blade($views, $cache);
-  echo $blade->view()->make($path,$data)->render();
+  echo $blade->view()->make($path, $data)->render();
 }
 
 /**
@@ -39,9 +39,23 @@ function beautify($data) {
 }
 
 /**
- * @return csrf token
- * */
- 
- function csrf_field(){
-   return CSRF::_token();
- }
+* @return csrf token
+* */
+
+function csrf_field() {
+  return CSRF::_token();
+}
+
+/**
+* Slug Gen
+* */
+function slug($str, $replace = [], $delimiter = '-') {
+  if (!empty($replace)) {
+    $str = str_replace((array)$replace, ' ', $str);
+  }
+  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+  $clean = strtolower(trim($clean, '-'));
+  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+  return $clean;
+}
