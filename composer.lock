@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1c0019e8cb02544b6376de803a6815f",
+    "content-hash": "c6ee9ad3f54113d8d7540c3043d34884",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -1730,6 +1730,67 @@
                 }
             ],
             "time": "2020-09-14T15:57:31+00:00"
+        },
+        {
+            "name": "voku/pagination",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/voku/pagination.git",
+                "reference": "e80c49a5744b608eb7f9c559a40e812f6e873fdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/voku/pagination/zipball/e80c49a5744b608eb7f9c559a40e812f6e873fdb",
+                "reference": "e80c49a5744b608eb7f9c559a40e812f6e873fdb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0|~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "voku\\helper\\": "src/voku/helper/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Carr",
+                    "email": "dave@daveismyname.com",
+                    "homepage": "http://www.daveismyname.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Lars Moelleken",
+                    "email": "lars@moelleken.org",
+                    "homepage": "http://www.moelleken.org/",
+                    "role": "Fork-Maintainer"
+                }
+            ],
+            "description": "Pagination, without a database dependency",
+            "keywords": [
+                "pager",
+                "pagination",
+                "paginator"
+            ],
+            "support": {
+                "issues": "https://github.com/voku/pagination/issues",
+                "source": "https://github.com/voku/pagination/tree/master"
+            },
+            "time": "2020-03-20T11:07:09+00:00"
         }
     ],
     "packages-dev": [],

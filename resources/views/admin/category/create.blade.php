@@ -9,6 +9,11 @@
     <div class="col">
       <div class="container">
         <form action="{{url('/admin/category/create')}}" method="post">
+          @if(App\Classes\Session::has('delete_success'))
+          <div class="alert alert-success">
+            {{App\Classes\Session::flash("delete_success")}}
+          </div>
+          @endif
       @include('layouts.errors')
           <input type="hidden" name="_token" value="{{csrf_field()}}">
           <div class="form-group">
@@ -28,13 +33,11 @@
             <a href="">{{$cat->name}}</a>
 
             <!-- Edit and Delete Button Of Cat -->
-            <a href="" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
+            <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <a href="" class="btn btn-info float-right btn-sm">Edit</a>
           </li>
           @endforeach
         </ul>
-
-
       </div>
     </div>
   </div>

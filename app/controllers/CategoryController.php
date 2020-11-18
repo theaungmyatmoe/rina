@@ -37,12 +37,19 @@ class CategoryController extends BaseController
         ]);
         if ($cat) {
           $success = "Category Created Successfully!";
-          $cats  = Category::all();
-          view('admin/category/create', compact("cats", "errors","success"));
+          $cats = Category::all();
+          view('admin/category/create', compact("cats", "errors", "success"));
         }
       }
     } else {
       Session::flash("error", "Session Expired!");
+    }
+  }
+  function delete($id) {
+    $cat = Category::destroy($id);
+    if ($cat) {
+      Session::flash("delete_success", "Deleted Successfully!");
+      Redirect::redirect("/admin/category/create");
     }
   }
 }

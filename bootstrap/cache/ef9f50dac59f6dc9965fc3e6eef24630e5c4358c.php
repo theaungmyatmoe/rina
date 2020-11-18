@@ -8,6 +8,12 @@
     <div class="col">
       <div class="container">
         <form action="<?php echo e(url('/admin/category/create')); ?>" method="post">
+          <?php if(App\Classes\Session::has('delete_success')): ?>
+          <div class="alert alert-success">
+            <?php echo e(App\Classes\Session::flash("delete_success")); ?>
+
+          </div>
+          <?php endif; ?>
       <?php echo $__env->make('layouts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
           <input type="hidden" name="_token" value="<?php echo e(csrf_field()); ?>">
           <div class="form-group">
@@ -27,13 +33,11 @@
             <a href=""><?php echo e($cat->name); ?></a>
 
             <!-- Edit and Delete Button Of Cat -->
-            <a href="" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
+            <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <a href="" class="btn btn-info float-right btn-sm">Edit</a>
           </li>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
-
-
       </div>
     </div>
   </div>
