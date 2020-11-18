@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('title','Category')
 @section('content')
+<style>
+  .pagination li{
+    border: 1px solid #eee;
+    width:30px;
+    height: 30px;
+  }
+</style>
 <div class="container-fluid my-5">
   <div class="row g-0">
     <div class="col-md-4 mb-3">
@@ -14,7 +21,7 @@
             {{App\Classes\Session::flash("delete_success")}}
           </div>
           @endif
-      @include('layouts.errors')
+          @include('layouts.errors')
           <input type="hidden" name="_token" value="{{csrf_field()}}">
           <div class="form-group">
             <label>Categroy Name</label>
@@ -30,7 +37,7 @@
         <ul class="list-group my-5">
           @foreach($cats as $cat)
           <li class="list-group-item">
-            <a href="">{{$cat->name}}</a>
+            <a href="">{{$cat['name']}}</a>
 
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
@@ -38,6 +45,9 @@
           </li>
           @endforeach
         </ul>
+        <div class="text-center">
+          {!! $pages !!}
+        </div>
       </div>
     </div>
   </div>

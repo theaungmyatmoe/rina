@@ -10,8 +10,9 @@ class CategoryController extends BaseController
 {
 
   public function show() {
-    $cats = Category::all();
-    view('admin/category/create', compact("cats"));
+   // $cats = Category::all();
+    list($cats,$pages) = paginate("categories",3);
+    view('admin/category/create', compact("cats","pages"));
   }
   public function store() {
     $post = Request::get('post');

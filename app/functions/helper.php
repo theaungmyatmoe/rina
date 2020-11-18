@@ -65,14 +65,19 @@ function slug($str, $replace = [], $delimiter = '-') {
 }
 
 function paginate($tableName, $record) {
-  // $carbon = new Carbon($db[0]->created_at);
-  $pages = new Paginator($record, 'p');
+  $pages = new Paginator($record, 'page');
   // Count All Rows
-
+  $categories = [];
   $rowCount = DB::table($tableName)->get();
-  $data = DB::select("SELECT * from $tableName".$pages->get_limit());
-  //$date = $carbon->toDateTimeString();
+  $data = DB::select("SELECT * from $tableName ORDER BY id DESC".$pages->get_limit());
   $pages->set_total(count($rowCount));
-  echo $pages->page_links();
-
+  foreach ($data as $d) {
+    $carbon = new Carbon($d->created_at);
+    array_push($categories, [
+      "name" => $d->name,
+      "date" => $carbon->toFormattedDateString()
+    ]);
+  }
+  $links = $pages->page_links();
+return [$categories,$links];
 }

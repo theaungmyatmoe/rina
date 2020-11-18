@@ -1,5 +1,12 @@
 <?php $__env->startSection('title','Category'); ?>
 <?php $__env->startSection('content'); ?>
+<style>
+  .pagination li{
+    border: 1px solid #eee;
+    width:30px;
+    height: 30px;
+  }
+</style>
 <div class="container-fluid my-5">
   <div class="row g-0">
     <div class="col-md-4 mb-3">
@@ -14,7 +21,7 @@
 
           </div>
           <?php endif; ?>
-      <?php echo $__env->make('layouts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+          <?php echo $__env->make('layouts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
           <input type="hidden" name="_token" value="<?php echo e(csrf_field()); ?>">
           <div class="form-group">
             <label>Categroy Name</label>
@@ -30,7 +37,7 @@
         <ul class="list-group my-5">
           <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <li class="list-group-item">
-            <a href=""><?php echo e($cat->name); ?></a>
+            <a href=""><?php echo e($cat['name']); ?></a>
 
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
@@ -38,6 +45,10 @@
           </li>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
+        <div class="text-center">
+          <?php echo $pages; ?>
+
+        </div>
       </div>
     </div>
   </div>
