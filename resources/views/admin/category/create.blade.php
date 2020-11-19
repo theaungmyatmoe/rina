@@ -63,6 +63,7 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+                    <p id="errors"></p>
           <form id="edit-form">
             <label>Enter Name</label>
             <input class="form-control form-control-sm" type="text" id="edit-name">
@@ -94,13 +95,22 @@
     let edit_value = document.querySelector("#edit-name").value;
     let editData = new FormData();
     editData.append("edit_id",edit_id);
-    editData.append("edit_name",edit_value);
+    editData.append("name",edit_value);
     editData.append("edit_token",edit_token);
     axios.post("{{URL_ROOT}}"+"/admin/category/"+edit_id+"/update",editData)
     .then(function(res){
-      console.log(res.data)
+      if(res.data){
+      let shoErr = document.querySelector("#errors");
+      shoErr.innerHTML = `
+      <div class="alert alert-danger">
+      ${res.data.name}
+      </div>
+      `;
+      }else{
+        window.location.href = "http://localhost:8080/E-Commerence/public/admin/category/create";
+      }
     })
-    
+
   })
   </script>
       @endsection

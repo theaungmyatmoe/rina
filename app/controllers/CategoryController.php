@@ -57,14 +57,27 @@ class CategoryController extends BaseController
   }
   function update() {
     $post = Request::get('post');
-    $data = [];
     if (CSRF::checkToken($post->edit_token)) {
-    $cat = Category::where("id", $post->edit_id)->update([
-      "name"=>$post->edit_name
-      ]);
-    }else{
-      $data["status"] = "CSRF Token Miss Match Exception!";
+      $rules = [
+        "name" =>
+        [
+          "string" => true,
+          "unique" => "categories"
+        ]
+      ];
+      $valid = new Validator();
+      $valid->checkData($post, $rules);
+      if ($valid->hasErrors()) {
+        $errors = $valid->getErrors();
+        echo json_encode($errors);
+      } else {
+        $cat = Category::where("id", $post->edit_id)->update([
+          "name" => $post->name
+        ]);
+      }
+    } else {
+      header("HTTP/1.1 422",true,422);
+      echo "CSRF Token Miss Match Exception!";
     }
-    beautify($post);
   }
 }
