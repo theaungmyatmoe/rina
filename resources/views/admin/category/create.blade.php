@@ -40,9 +40,10 @@
             {{$cat->name}}
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
-            <a href="" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#editCat" onclick="putData('{{$cat->name}}','{{$cat->id}}')">
+            <button class="btn btn-sm btn-info float-right" data-toggle="modal"
+            data-target="#editCat" onclick="putData('{{$cat->name}}','{{$cat->id}}')">
               Edit
-            </a>
+            </button>
             @endforeach
           </ul>
           <div class="text-center">
@@ -54,7 +55,7 @@
   </div>
   <!-- Modal Start -->
   <!-- Modal -->
-  <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editCat" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -66,10 +67,8 @@
             <label>Enter Name</label>
             <input class="form-control form-control-sm" type="text" id="edit-name">
             <input class="form-control form-control-sm" type="hidden" id="edit-token" value="{{csrf_field()}}">
-            <input class="form-control form-control-sm" type="hidden" id="edit-id" value="">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary">Save</button>
           </form>
         </div>
@@ -80,22 +79,28 @@
   @endsection
   @section("scripts")
   <script>
-    function putData(name, id) {
-      // add value of form
-      document.querySelector("#edit-name").value = name;
-      document.querySelector("#edit-id").value = id;
-    }
-    let form = document.querySelector("#edit-form");
-    form.addEventListener("submit", (e)=> {
-      e.preventDefault();
-      let catValue = document.querySelector("#edit-name").value;
-      let catid = data.append("#edit-id").value;
-      let data = new FormData();
-      axios.post('/admin/category/'+catid+'/update', data)
-      .then((res)=> {
-        console.log(res);
-      })
+  let catName =  document.querySelector("#edit-name");
+  // Edit Id
+  let edit_id = "";
+  function putData(name,id){
+    catName.value = name;
+    edit_id = id;
+  }
+  // Get Form Data
+  let form = document.querySelector("#edit-form");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    let edit_token = document.querySelector("#edit-token").value;
+    let edit_value = document.querySelector("#edit-name").value;
+    let editData = new FormData();
+    editData.append("edit_id",edit_id);
+    editData.append("edit_name",edit_value);
+    editData.append("edit_token",edit_token);
+    axios.post("{{URL_ROOT}}"+"/admin/category/"+edit_id+"/update",editData)
+    .then(function(res){
+      console.log(res.data)
     })
-
+    
+  })
   </script>
-  @endsection
+      @endsection

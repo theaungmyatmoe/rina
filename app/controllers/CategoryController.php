@@ -11,10 +11,10 @@ class CategoryController extends BaseController
 
   public function show() {
     $total = Category::all()->count();
-    list($cats,$pages) = paginate($total,3,new Category);
+    list($cats, $pages) = paginate($total, 3, new Category);
     $cats = json_decode(json_encode($cats));
 
-    view('admin/category/create', compact("cats","pages"));
+    view('admin/category/create', compact("cats", "pages"));
   }
   public function store() {
     $post = Request::get('post');
@@ -41,7 +41,7 @@ class CategoryController extends BaseController
         if ($cat) {
           $success = "Category Created Successfully!";
           $cats = Category::all();
-         view('admin/category/create', compact("cats", "errors", "success"));
+          view('admin/category/create', compact("cats", "errors", "success"));
         }
       }
     } else {
@@ -55,7 +55,16 @@ class CategoryController extends BaseController
       Redirect::redirect("/admin/category/create");
     }
   }
-  function update(){
-    
+  function update() {
+    $post = Request::get('post');
+    $data = [];
+    if (CSRF::checkToken($post->edit_token)) {
+    $cat = Category::where("id", $post->edit_id)->update([
+      "name"=>$post->edit_name
+      ]);
+    }else{
+      $data["status"] = "CSRF Token Miss Match Exception!";
+    }
+    beautify($post);
   }
 }
