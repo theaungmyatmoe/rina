@@ -37,8 +37,10 @@
         <ul class="list-group my-5">
           <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <li class="list-group-item">
-            <a href=""><?php echo e($cat['name']); ?></a>
+            <a href="">
+              <?php echo e($cat->name); ?>
 
+            </a>
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <a href="" class="btn btn-info float-right btn-sm">Edit</a>

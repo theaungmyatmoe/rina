@@ -37,8 +37,9 @@
         <ul class="list-group my-5">
           @foreach($cats as $cat)
           <li class="list-group-item">
-            <a href="">{{$cat['name']}}</a>
-
+            <a href="">
+              {{$cat->name}}
+            </a>
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <a href="" class="btn btn-info float-right btn-sm">Edit</a>

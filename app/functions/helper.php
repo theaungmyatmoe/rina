@@ -2,8 +2,6 @@
 
 use Philo\Blade\Blade;
 use App\Classes\CSRF;
-use Carbon\Carbon;
-use Illuminate\Database\Capsule\Manager as DB;
 use voku\helper\Paginator;
 
 /**
@@ -64,20 +62,11 @@ function slug($str, $replace = [], $delimiter = '-') {
   return $clean;
 }
 
-function paginate($tableName, $record) {
+function paginate($total,$record,$obj) {
   $pages = new Paginator($record, 'page');
-  // Count All Rows
-  $categories = [];
-  $rowCount = DB::table($tableName)->get();
-  $data = DB::select("SELECT * from $tableName ORDER BY id DESC".$pages->get_limit());
-  $pages->set_total(count($rowCount));
-  foreach ($data as $d) {
-    $carbon = new Carbon($d->created_at);
-    array_push($categories, [
-      "name" => $d->name,
-      "date" => $carbon->toFormattedDateString()
-    ]);
-  }
+  $categories = $obj->genPagi($pages->get_limit());
+  $pages->set_total($total);
   $links = $pages->page_links();
-return [$categories,$links];
+  return [$categories,
+    $links];
 }
