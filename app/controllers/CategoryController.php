@@ -13,6 +13,7 @@ class CategoryController extends BaseController
     $total = Category::all()->count();
     list($cats,$pages) = paginate($total,3,new Category);
     $cats = json_decode(json_encode($cats));
+
     view('admin/category/create', compact("cats","pages"));
   }
   public function store() {
@@ -40,7 +41,7 @@ class CategoryController extends BaseController
         if ($cat) {
           $success = "Category Created Successfully!";
           $cats = Category::all();
-          view('admin/category/create', compact("cats", "errors", "success"));
+         view('admin/category/create', compact("cats", "errors", "success"));
         }
       }
     } else {
@@ -53,5 +54,8 @@ class CategoryController extends BaseController
       Session::flash("delete_success", "Deleted Successfully!");
       Redirect::redirect("/admin/category/create");
     }
+  }
+  function update(){
+    
   }
 }

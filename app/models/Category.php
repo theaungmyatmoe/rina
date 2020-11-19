@@ -19,6 +19,8 @@ class Category extends Model
     foreach ($data as $d) {
       $carbon = new Carbon($d->created_at);
       array_push($categories, [
+        "id" => $d->id,
+        "slug" => $d->slug,
         "name" => $d->name,
         "date" => $carbon->toFormattedDateString()
       ]);

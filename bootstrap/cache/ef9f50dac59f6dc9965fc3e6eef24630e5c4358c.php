@@ -1,9 +1,9 @@
 <?php $__env->startSection('title','Category'); ?>
 <?php $__env->startSection('content'); ?>
 <style>
-  .pagination li{
+  .pagination li {
     border: 1px solid #eee;
-    width:30px;
+    width: 30px;
     height: 30px;
   }
 </style>
@@ -37,23 +37,68 @@
         <ul class="list-group my-5">
           <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <li class="list-group-item">
-            <a href="">
-              <?php echo e($cat->name); ?>
+            <?php echo e($cat->name); ?>
 
-            </a>
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
-            <a href="" class="btn btn-info float-right btn-sm">Edit</a>
-          </li>
-          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </ul>
-        <div class="text-center">
-          <?php echo $pages; ?>
+            <a href="" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#editCat" onclick="putData('<?php echo e($cat->name); ?>','<?php echo e($cat->id); ?>')">
+              Edit
+            </a>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </ul>
+          <div class="text-center">
+            <?php echo $pages; ?>
 
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<?php $__env->stopSection(); ?>
+  <!-- Modal Start -->
+  <!-- Modal -->
+  <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-form">
+            <label>Enter Name</label>
+            <input class="form-control form-control-sm" type="text" id="edit-name">
+            <input class="form-control form-control-sm" type="hidden" id="edit-token" value="<?php echo e(csrf_field()); ?>">
+            <input class="form-control form-control-sm" type="hidden" id="edit-id" value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal End -->
+  <?php $__env->stopSection(); ?>
+  <?php $__env->startSection("scripts"); ?>
+  <script>
+    function putData(name, id) {
+      // add value of form
+      document.querySelector("#edit-name").value = name;
+      document.querySelector("#edit-id").value = id;
+    }
+    let form = document.querySelector("#edit-form");
+    form.addEventListener("submit", (e)=> {
+      e.preventDefault();
+      let catValue = document.querySelector("#edit-name").value;
+      let catid = data.append("#edit-id").value;
+      let data = new FormData();
+      axios.post('/admin/category/'+catid+'/update', data)
+      .then((res)=> {
+        console.log(res);
+      })
+    })
+
+  </script>
+  <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /storage/emulated/0/htdocs/E-Commerence/resources/views/admin/category/create.blade.php ENDPATH**/ ?>
