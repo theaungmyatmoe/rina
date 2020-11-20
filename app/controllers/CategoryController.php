@@ -6,15 +6,20 @@ use App\Classes\Redirect;
 use App\Classes\Validator;
 use App\Classes\Session;
 use App\Models\Category;
+use App\Models\SubCategory;
 class CategoryController extends BaseController
 {
 
   public function show() {
     $total = Category::all()->count();
     list($cats, $pages) = paginate($total, 5, new Category);
-    $cats = json_decode(json_encode($cats));
+    $subTotal = SubCategory::all()->count();
+    list($subcats,) = paginate($subTotal, 5, new SubCategory);
 
-    view('admin/category/create', compact("cats", "pages"));
+    $cats = json_decode(json_encode($cats));
+    $subcats = json_decode(json_encode($subcats));
+//beautify($subcats);
+    view('admin/category/create', compact("cats", "pages","subcats","subpages"));
   }
   public function store() {
     $post = Request::get('post');

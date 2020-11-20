@@ -53,6 +53,23 @@
           <div class="text-center">
             {!! $pages !!}
           </div>
+          <!-- Sub Categories -->
+             <ul class="list-group my-5">
+          @foreach($subcats as $cat)
+          <li class="list-group-item">
+            {{$cat->name}}
+            <!-- Edit and Delete Button Of Cat -->
+            <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
+            <button class="btn btn-sm btn-info float-right" data-toggle="modal"
+              data-target="#editCat" onclick="putData('{{$cat->name}}','{{$cat->id}}')">
+              Edit
+            </button>
+            @endforeach
+          </ul>
+          <div class="text-center">
+            {!! $pages !!}
+          </div>
+          <!-- Sub Categories  End-->
         </div>
       </div>
     </div>
@@ -80,7 +97,7 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- Modal End -->
   <!-- Modal Sub Category Start-->
   <div class="modal fade" id="editSubCat" tabindex="-1" aria-hidden="true">

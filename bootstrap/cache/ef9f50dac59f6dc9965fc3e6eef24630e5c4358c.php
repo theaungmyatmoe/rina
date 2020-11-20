@@ -55,6 +55,25 @@
             <?php echo $pages; ?>
 
           </div>
+          <!-- Sub Categories -->
+             <ul class="list-group my-5">
+          <?php $__currentLoopData = $subcats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <li class="list-group-item">
+            <?php echo e($cat->name); ?>
+
+            <!-- Edit and Delete Button Of Cat -->
+            <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
+            <button class="btn btn-sm btn-info float-right" data-toggle="modal"
+              data-target="#editCat" onclick="putData('<?php echo e($cat->name); ?>','<?php echo e($cat->id); ?>')">
+              Edit
+            </button>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </ul>
+          <div class="text-center">
+            <?php echo $pages; ?>
+
+          </div>
+          <!-- Sub Categories  End-->
         </div>
       </div>
     </div>
@@ -82,7 +101,7 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- Modal End -->
   <!-- Modal Sub Category Start-->
   <div class="modal fade" id="editSubCat" tabindex="-1" aria-hidden="true">
