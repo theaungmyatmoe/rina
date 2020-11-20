@@ -11,7 +11,7 @@ class CategoryController extends BaseController
 
   public function show() {
     $total = Category::all()->count();
-    list($cats, $pages) = paginate($total, 3, new Category);
+    list($cats, $pages) = paginate($total, 5, new Category);
     $cats = json_decode(json_encode($cats));
 
     view('admin/category/create', compact("cats", "pages"));
@@ -70,14 +70,16 @@ class CategoryController extends BaseController
       if ($valid->hasErrors()) {
         $errors = $valid->getErrors();
         echo json_encode($errors);
+        exit();
       } else {
         $cat = Category::where("id", $post->edit_id)->update([
           "name" => $post->name
         ]);
       }
     } else {
-      header("HTTP/1.1 422",true,422);
+      header("HTTP/1.1 422", true, 422);
       echo "CSRF Token Miss Match Exception!";
+      exit();
     }
   }
 }

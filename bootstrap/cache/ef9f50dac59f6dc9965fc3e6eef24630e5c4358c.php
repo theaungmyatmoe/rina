@@ -42,8 +42,12 @@
             <!-- Edit and Delete Button Of Cat -->
             <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
             <button class="btn btn-sm btn-info float-right" data-toggle="modal"
-            data-target="#editCat" onclick="putData('<?php echo e($cat->name); ?>','<?php echo e($cat->id); ?>')">
+              data-target="#editCat" onclick="putData('<?php echo e($cat->name); ?>','<?php echo e($cat->id); ?>')">
               Edit
+            </button>
+            <button class="btn btn-sm btn-outline-success float-right mr-2" data-toggle="modal"
+              data-target="#editSubCat" onclick="putSubData('<?php echo e($cat->id); ?>')">
+              +
             </button>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
@@ -61,11 +65,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Rename Category</h5>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-                    <p id="errors"></p>
+          <p id="errors"></p>
           <form id="edit-form">
             <label>Enter Name</label>
             <input class="form-control form-control-sm" type="text" id="edit-name">
@@ -78,42 +82,78 @@
       </div>
     </div>
   </div>
+
   <!-- Modal End -->
+  <!-- Modal Sub Category Start-->
+  <div class="modal fade" id="editSubCat" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create New Sub  Category</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="errors">
+            <!-- This Will Throw Errors -->
+          </p>
+          <form id="create-form">
+            <label>Enter Name</label>
+            <input class="form-control form-control-sm" type="text" id="sub-name">
+            <input class="form-control form-control-sm" type="hidden" id="sub-token" value="<?php echo e(csrf_field()); ?>">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Sub Category End-->
   <?php $__env->stopSection(); ?>
   <?php $__env->startSection("scripts"); ?>
   <script>
-  let catName =  document.querySelector("#edit-name");
-  // Edit Id
-  let edit_id = "";
-  function putData(name,id){
-    catName.value = name;
-    edit_id = id;
-  }
-  // Get Form Data
-  let form = document.querySelector("#edit-form");
-  form.addEventListener("submit",function(e){
-    e.preventDefault();
-    let edit_token = document.querySelector("#edit-token").value;
-    let edit_value = document.querySelector("#edit-name").value;
-    let editData = new FormData();
-    editData.append("edit_id",edit_id);
-    editData.append("name",edit_value);
-    editData.append("edit_token",edit_token);
-    axios.post("<?php echo e(URL_ROOT); ?>"+"/admin/category/"+edit_id+"/update",editData)
-    .then(function(res){
-      if(res.data){
-      let shoErr = document.querySelector("#errors");
-      shoErr.innerHTML = `
-      <div class="alert alert-danger">
-      ${res.data.name}
-      </div>
-      `;
-      }else{
-        window.location.href = "http://localhost:8080/E-Commerence/public/admin/category/create";
-      }
-    })
+    let catName = document.querySelector("#edit-name");
+    // Edit Id
+    let edit_id = "";
+    function putData(name, id) {
+      catName.value = name;
+      edit_id = id;
+    }
+    // Get Form Data
+    let form = document.querySelector("#edit-form");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let edit_token = document.querySelector("#edit-token").value;
+      let edit_value = document.querySelector("#edit-name").value;
+      let editData = new FormData();
+      editData.append("edit_id", edit_id);
+      editData.append("name", edit_value);
+      editData.append("edit_token", edit_token);
+      axios.post("<?php echo e(URL_ROOT); ?>"+"/admin/category/"+edit_id+"/update", editData)
+      .then(function(res) {
+        if (res.data) {
+          let shoErr = document.querySelector("#errors");
+          shoErr.innerHTML = `
+          <div class="alert alert-danger">
+          ${res.data.name}
+          </div>
+          `;
+        } else {
+          window.location.href = "http://localhost:8080/E-Commerence/public/admin/category/create";
+        }
+      })
 
-  })
+    })
+    function putSubData(id) {
+      let name = document.querySelector("#sub-name");
+      let create_form = document.querySelector("#create-form");
+      create_form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        let sub_name = name.value;
+        alert(id)
+      })
+    }
   </script>
-      <?php $__env->stopSection(); ?>
+  <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /storage/emulated/0/htdocs/E-Commerence/resources/views/admin/category/create.blade.php ENDPATH**/ ?>
