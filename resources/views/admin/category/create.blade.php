@@ -91,7 +91,7 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p id="errors">
+          <p id="suberrors">
             <!-- This Will Throw Errors -->
           </p>
           <form id="create-form">
@@ -154,8 +154,22 @@
         data.append("name",sub_name);
         data.append("cat_id",id);
         data.append("token",token.value)
-        axios.post("{{URL_ROOT}}"+"/admin/sub-category/create",data);
+        axios.post("{{URL_ROOT}}"+"/admin/sub-category/create",data)
+        .then(function(res){
+if (res.data) {
+          let shoErr = document.querySelector("#suberrors");
+          shoErr.innerHTML = `
+          <div class="alert alert-danger">
+          ${res.data.name}
+          </div>
+          `;
+        } else {
+          window.location.href = "http://localhost:8080/E-Commerence/public/admin/category/create";
+        }
+        })
+
       })
+      
     }
   </script>
   @endsection
