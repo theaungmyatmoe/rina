@@ -37,5 +37,32 @@ class SubCategoryController extends BaseController
     }
   }
 
+  function update() {
+    $post = Request::get('post');
+    if (CSRF::checkToken($post->token)) {
+      $rules = [
+        "name" =>
+        [
+          "string" => true,
+          "unique" => "sub_categories"
+        ]
+      ];
+      $valid = new Validator();
+      $valid->checkData($post, $rules);
+      if ($valid->hasErrors()) {
+        $errors = $valid->getErrors();
+        echo json_encode($errors);
+        exit();
+      } else {
+        $cat = SubCategory::where("id", $post->id)->update([
+          "name" => $post->name
+        ]);
+      }
+    } else {
+      header("HTTP/1.1 422", true, 422);
+      echo "CSRF Token Miss Match Exception!";
+      exit();
+    }
+  }
 
 }

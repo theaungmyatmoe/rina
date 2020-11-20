@@ -26,5 +26,6 @@ class SubCategory extends Model
     }
 return $categories;
   }
+  
 
 }
