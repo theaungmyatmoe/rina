@@ -151,7 +151,12 @@
       create_form.addEventListener("submit", function(e) {
         e.preventDefault();
         let sub_name = name.value;
-        alert(id)
+        let data = new FormData();
+        let token = document.querySelector("#sub-token");
+        data.append("name",sub_name);
+        data.append("cat_id",id);
+        data.append("token",token.value)
+        axios.post("<?php echo e(URL_ROOT); ?>"+"/admin/sub-category/create",data);
       })
     }
   </script>
