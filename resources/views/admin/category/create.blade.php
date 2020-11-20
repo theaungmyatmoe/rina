@@ -59,7 +59,7 @@
             <li class="list-group-item">
               {{$cat->name}}
               <!-- Edit and Delete Button Of Cat -->
-              <a href="<?php echo url('/admin/category/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
+              <a href="<?php echo url('/admin/subcategory/'.$cat->id.'/delete'); ?>" class="btn btn-danger btn-sm float-right ml-3">Delete</a>
               <button class="btn btn-sm btn-info float-right" data-toggle="modal"
                 data-target="#editSubCategory" onclick="putSubData('{{$cat->name}}','{{$cat->id}}')">
                 Edit

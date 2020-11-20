@@ -65,4 +65,12 @@ class SubCategoryController extends BaseController
     }
   }
 
+  function delete($id) {
+    $cat = SubCategory::destroy($id);
+    if ($cat) {
+      Session::flash("delete_success", "Deleted Successfully!");
+      Redirect::redirect("/admin/category/create");
+    }
+  }
+
 }
