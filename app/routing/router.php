@@ -27,6 +27,8 @@ $router->map('POST','/admin/category/[i:id]/update','App\Controllers\CategoryCon
 $router->map('POST','/admin/subcategory/[i:id]/update','App\Controllers\SubCategoryController@update','SubCategory Update');
 $router->map('GET','/admin/subcategory/[i:id]/delete','App\Controllers\SubCategoryController@delete','SubCategory Delete');
 $router->map('POST','/admin/sub-category/create','App\Controllers\SubCategoryController@store','Sub Category Create');
+$router->map('GET','/admin/product/show','App\Controllers\ProductController@show','Product Show');
+$router->map('GET','/admin/product/create','App\Controllers\ProductController@create','Product Create');
 
 
 new RouterDispatcher($router);
