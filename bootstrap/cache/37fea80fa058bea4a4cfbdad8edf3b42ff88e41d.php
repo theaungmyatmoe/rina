@@ -37,7 +37,7 @@
               <img src="<?php echo e(asset("uploads/".$product->image)); ?>" alt="Image Not Found" class="img-fluid">
             </td>
             <td>
-              <a class="btn btn-sm btn-info" href="">Edit</a>
+              <a class="btn btn-sm btn-info" href="<?php echo url("/admin/product/$product->id/edit"); ?>">Edit</a>
               <a class="btn btn-sm btn-danger" href="">Delete</a>
             </td>
 

@@ -63,4 +63,12 @@ $cats = Category::all();
       }
     }
   }
+  public function edit($id){
+    $product = Product::where('id',$id)->get();
+    $cats = Category::all();
+    $sub_cats = SubCategory::all();
+    //beautify($product);
+  view("admin/product/edit", compact("cats", "sub_cats","product"));
+  
+  }
 }
