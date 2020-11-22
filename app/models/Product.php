@@ -2,14 +2,16 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
-use Illuminate\Database\Capsule\Manager as DB;
 
-class Category extends Model
+class Product extends Model
 {
   protected $fillable = [
-    "",
-    ""
+    "category_id",
+    "sub_category_id",
+    "name",
+    "price",
+    "content",
+    "image"
   ];
 
 }

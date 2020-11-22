@@ -58,6 +58,7 @@ class FileHandler
           mkdir($path);
         }
         $file_path = $path.$fileName;
+        $this->name = $fileName;
         move_uploaded_file($file->file->tmp_name, $file_path);
 
       } else {
@@ -67,5 +68,10 @@ class FileHandler
       return "Only Image File Accept!";
     }
   }
-
+/*
+Get File Name
+*/
+function getFileName(){
+  return $this->name;
+}
 }

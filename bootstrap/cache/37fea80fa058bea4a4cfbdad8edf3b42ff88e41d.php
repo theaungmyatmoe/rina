@@ -1,13 +1,19 @@
 <?php $__env->startSection('title','Category'); ?>
 <?php $__env->startSection('content'); ?>
 <div class="container my-3">
-  <div class="row">
+  <div class="row my-5">
     <!-- Sidebar -->
-    <div class="col-md-4">
+    <div class="col-md-4 mb-3">
       <?php echo $__env->make('layouts.admin_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
     <!-- Sidebar -->
     <div class="col">
+      <?php if(App\Classes\Session::has("product_success")): ?>
+      <div class="alert alert-success">
+        <?php echo e(App\Classes\Session::flash("product_success")); ?>
+
+      </div>
+      <?php endif; ?>
       <h1>Show All Products</h1>
     </div>
   </div>

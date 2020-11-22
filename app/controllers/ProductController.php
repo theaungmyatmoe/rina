@@ -2,11 +2,13 @@
 namespace App\Controllers;
 use App\Classes\Request;
 use App\Classes\CSRF;
+use App\Classes\FileHandler;
 use App\Classes\Redirect;
 use App\Classes\Validator;
 use App\Classes\Session;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Product;
 class ProductController extends BaseController
 {
   public function show() {
@@ -22,7 +24,8 @@ class ProductController extends BaseController
     $file = Request::get('file');
     $valid = new Validator();
     $rules = [
-      "name" => ["string" => true]
+      "name" => ["string" => true],
+      "price"=>["number"=>true]
     ];
     $valid->checkData($post, $rules);
     if ($valid->hasErrors()) {
@@ -30,11 +33,32 @@ class ProductController extends BaseController
       $cats = Category::all();
       $sub_cats = SubCategory::all();
       view("admin/product/create", compact("cats", "sub_cats", "errors"));
-    }else {
-      $success = "Successfully Created!";
-      $cats = Category::all();
+    } else {
+      if(empty($file->file->name)){
+        $errors = ["Image Not Found!"];
+$cats = Category::all();
       $sub_cats = SubCategory::all();
-      view("admin/product/create", compact("cats", "sub_cats", "success"));
+      view("admin/product/create", compact("cats", "sub_cats", "errors"));
+      }else{
+      $getFile = new FileHandler();
+      // Move File
+      $getFile->move($file);
+      // Image Name
+      $fileName = $getFile->getFileName();
+      // iNsert iNto DB
+      $product = Product::create([
+        "category_id" => $post->cat_id,
+        "sub_category_id" => $post->sub_cat_id,
+        "name" => $post->name,
+        "price" => $post->price,
+        "content" => $post->content,
+        "image" => $fileName
+      ]);
+      if ($product) {
+        Session::flash("product_success","Product Created Successfully");
+        Redirect::redirect("/admin/product/show");
+      }
+      }
     }
   }
 }
