@@ -27,7 +27,9 @@
         <tbody>
           @foreach($products as $product)
           <tr>
-            <td>{{$product->id}}</td>
+            <td>
+            {{$product->id}}
+            </td>
             <td>{{$product->name}}</td>
             <td>{{$product->price}}</td>
             <td>
@@ -42,9 +44,9 @@
           @endforeach
         </tbody>
       </table>
-
-
-
+<div class="text-center">
+  {!! $pages !!}
+</div>
     </div>
   </div>
 </div>

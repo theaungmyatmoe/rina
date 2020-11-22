@@ -12,8 +12,9 @@ use App\Models\Product;
 class ProductController extends BaseController
 {
   public function show() {
-    $products = Product::all();
-    view("admin/product/show",compact("products"));
+  list($products,$pages) = paginate(count(Product::all()),5,new Product);
+  $products = json_decode(json_encode($products));
+   view("admin/product/show",compact("products","pages"));
   }
   public function create() {
     $cats = Category::all();

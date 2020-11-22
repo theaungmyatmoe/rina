@@ -1,13 +1,6 @@
 @extends('layouts.app')
 @section('title','Category')
 @section('content')
-<style>
-  .pagination li {
-    border: 1px solid #eee;
-    width: 30px;
-    height: 30px;
-  }
-</style>
 <div class="container-fluid my-5">
   <div class="row g-0">
     <div class="col-md-4 mb-3">

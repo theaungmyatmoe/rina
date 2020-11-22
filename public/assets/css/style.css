@@ -1,3 +1,9 @@
-a{
+a {
   text-decoration: none;
+}
+
+.pagination li {
+  border: 1px solid #eee;
+  width: 30px;
+  height: 30px;
 }
