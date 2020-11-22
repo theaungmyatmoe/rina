@@ -11,7 +11,9 @@
     <div class="col">
       <div class="container-fluid card">
         <h1 class="display-6 my-3">Create Product</h1>
-        <form action="" method="post" class="my-3">
+        <form action="{{url('/admin/product/create')}}" method="post" class="my-3" enctype="multipart/form-data">
+          @include("layouts.errors")
+          <input type="hidden" value="{{csrf_field()}}" name="token">
           <div class="row">
             <div class="form-group mb-3 w-50">
               <label for="name">Product Name</label>
@@ -19,18 +21,22 @@
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Product Price</label>
-              <input type="number" name="price" id="name" class="form-control">
+              <input type="number" name="price" id="name" class="form-control" step="any">
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Choose Category</label>
               <select name="cat_id" class="form-control">
-                <option value="1">One</option>
+                @foreach($cats as $cat)
+                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                @endforeach
               </select>
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Sub Category</label>
               <select name="sub_cat_id" class="form-control">
-                <option value="1">One</option>
+                @foreach($sub_cats as $cat)
+                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                @endforeach
               </select>
             </div>
             <div class="form-group mb-3">

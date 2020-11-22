@@ -10,7 +10,9 @@
     <div class="col">
       <div class="container-fluid card">
         <h1 class="display-6 my-3">Create Product</h1>
-        <form action="" method="post" class="my-3">
+        <form action="<?php echo e(url('/admin/product/create')); ?>" method="post" class="my-3" enctype="multipart/form-data">
+          <?php echo $__env->make("layouts.errors", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+          <input type="hidden" value="<?php echo e(csrf_field()); ?>" name="token">
           <div class="row">
             <div class="form-group mb-3 w-50">
               <label for="name">Product Name</label>
@@ -18,18 +20,22 @@
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Product Price</label>
-              <input type="number" name="price" id="name" class="form-control">
+              <input type="number" name="price" id="name" class="form-control" step="any">
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Choose Category</label>
               <select name="cat_id" class="form-control">
-                <option value="1">One</option>
+                <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Sub Category</label>
               <select name="sub_cat_id" class="form-control">
-                <option value="1">One</option>
+                <?php $__currentLoopData = $sub_cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($cat->id); ?>"><?php echo e($cat->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
             </div>
             <div class="form-group mb-3">
