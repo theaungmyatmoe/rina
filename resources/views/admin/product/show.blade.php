@@ -15,6 +15,36 @@
       </div>
       @endif
       <h1>Show All Products</h1>
+
+      <table class="table table-bodered">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th colspan="2">Manage</th>
+        </tr>
+        <tbody>
+          @foreach($products as $product)
+          <tr>
+            <td>{{$product->id}}</td>
+            <td>{{$product->name}}</td>
+            <td>{{$product->price}}</td>
+            <td>
+              <img src="{{asset("uploads/".$product->image)}}" alt="Image Not Found" class="img-fluid">
+            </td>
+            <td>
+              <a class="btn btn-sm btn-info" href="">Edit</a>
+              <a class="btn btn-sm btn-danger" href="">Delete</a>
+            </td>
+
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+
+
+
     </div>
   </div>
 </div>

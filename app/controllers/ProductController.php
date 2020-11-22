@@ -12,7 +12,8 @@ use App\Models\Product;
 class ProductController extends BaseController
 {
   public function show() {
-    view("admin/product/show");
+    $products = Product::all();
+    view("admin/product/show",compact("products"));
   }
   public function create() {
     $cats = Category::all();

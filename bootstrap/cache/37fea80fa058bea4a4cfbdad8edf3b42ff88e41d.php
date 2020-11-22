@@ -15,6 +15,36 @@
       </div>
       <?php endif; ?>
       <h1>Show All Products</h1>
+
+      <table class="table table-bodered">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th colspan="2">Manage</th>
+        </tr>
+        <tbody>
+          <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <tr>
+            <td><?php echo e($product->id); ?></td>
+            <td><?php echo e($product->name); ?></td>
+            <td><?php echo e($product->price); ?></td>
+            <td>
+              <img src="<?php echo e(asset("uploads/".$product->image)); ?>" alt="Image Not Found" class="img-fluid">
+            </td>
+            <td>
+              <a class="btn btn-sm btn-info" href="">Edit</a>
+              <a class="btn btn-sm btn-danger" href="">Delete</a>
+            </td>
+
+          </tr>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </tbody>
+      </table>
+
+
+
     </div>
   </div>
 </div>
