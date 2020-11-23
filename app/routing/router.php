@@ -14,6 +14,8 @@ $router->setBasePath('/E-Commerence/public');
 // method,uri,controller,route name
 
 $router->map('GET','/','App\Controllers\IndexController@show','Home Route');
+$router->map('POST','/cart','App\Controllers\IndexController@cart','Cart Route');
+$router->map('GET','/cart/show','App\Controllers\IndexController@showCarts','Cart Show Route');
 
 //Admin Home
 $router->map('GET','/admin','App\Controllers\AdminController@index','Admin Home');
