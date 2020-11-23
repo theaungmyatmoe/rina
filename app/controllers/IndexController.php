@@ -21,8 +21,13 @@ class IndexController extends BaseController
   }
   function showCarts(){
     $carts = Session::get('carts');
+    $items = [];
     foreach ($carts as $cart){
-      echo $cart;
+     $product = Product::where("id",$cart)->first();
+     array_push($items,$product);
     }
+    $items = json_decode(json_encode($items));
+   // beautify($items);
+    view("cart",compact("items"));
   }
 }
