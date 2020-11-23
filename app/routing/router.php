@@ -31,6 +31,7 @@ $router->map('GET','/admin/product/show','App\Controllers\ProductController@show
 $router->map('GET','/admin/product/create','App\Controllers\ProductController@create','Product Create');
 $router->map('POST','/admin/product/create','App\Controllers\ProductController@store','Product Store');
 $router->map('GET','/admin/product/[i:id]/edit','App\Controllers\ProductController@edit','Product Edit');
+$router->map('POST','/admin/product/[i:id]/edit','App\Controllers\ProductController@update','Product Upadte');
 
 
 new RouterDispatcher($router);

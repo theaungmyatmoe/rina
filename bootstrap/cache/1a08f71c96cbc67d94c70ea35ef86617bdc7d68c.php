@@ -10,17 +10,19 @@
     <div class="col">
       <div class="container-fluid card">
         <h1 class="display-6 my-3">Create Product</h1>
-        <form action="<?php echo e(url('/admin/product/create')); ?>" method="post" class="my-3" enctype="multipart/form-data">
+        <form action="<?php
+        echo url('/admin/product/'.$product->id.'/edit');
+        ?>" method="post" class="my-3" enctype="multipart/form-data">
           <?php echo $__env->make("layouts.errors", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
           <input type="hidden" value="<?php echo e(csrf_field()); ?>" name="token">
           <div class="row">
             <div class="form-group mb-3 w-50">
               <label for="name">Product Name</label>
-              <input type="text" name="name" id="name" class="form-control" value="<?php echo e($product[0]->name); ?>">
+              <input type="text" name="name" id="name" class="form-control" value="<?php echo e($product->name); ?>">
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Product Price</label>
-              <input type="number" name="price" id="name" class="form-control" step="any" value="<?php echo e($product[0]->price); ?>">
+              <input type="number" name="price" id="name" class="form-control" step="any" value="<?php echo e($product->price); ?>">
             </div>
             <div class="form-group mb-3 w-50">
               <label for="name">Choose Category</label>
@@ -28,7 +30,7 @@
                 <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <option value="<?php echo e($cat->id); ?>"
             <?php
-            echo $product[0]->category_id === $cat->id ? "selected" : '';
+            echo $product->category_id === $cat->id ? "selected" : '';
             ?>
                 ><?php echo e($cat->name); ?></option>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -48,12 +50,13 @@
             </div>
             <div class="form-group mb-3">
               <label for="name">Choose Image</label>
+              <input type="hidden" name="old_file" value="<?php echo e($product->image); ?>">
               <input type="file" name="file" id="file" class="form-control">
             </div>
             <div class="form-group mb-3">
               <label>Product Discription</label><br>
               <textarea name="content" rows="5" class="form-control">
-                <?php echo e($product[0]->content); ?>
+                <?php echo e($product->content); ?>
 
               </textarea>
             </div>

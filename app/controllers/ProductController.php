@@ -12,9 +12,9 @@ use App\Models\Product;
 class ProductController extends BaseController
 {
   public function show() {
-  list($products,$pages) = paginate(count(Product::all()),5,new Product);
-  $products = json_decode(json_encode($products));
-   view("admin/product/show",compact("products","pages"));
+    list($products, $pages) = paginate(count(Product::all()), 5, new Product);
+    $products = json_decode(json_encode($products));
+    view("admin/product/show", compact("products", "pages"));
   }
   public function create() {
     $cats = Category::all();
@@ -27,7 +27,7 @@ class ProductController extends BaseController
     $valid = new Validator();
     $rules = [
       "name" => ["string" => true],
-      "price"=>["number"=>true]
+      "price" => ["number" => true]
     ];
     $valid->checkData($post, $rules);
     if ($valid->hasErrors()) {
@@ -36,39 +36,84 @@ class ProductController extends BaseController
       $sub_cats = SubCategory::all();
       view("admin/product/create", compact("cats", "sub_cats", "errors"));
     } else {
-      if(empty($file->file->name)){
+      if (empty($file->file->name)) {
         $errors = ["Image Not Found!"];
-$cats = Category::all();
-      $sub_cats = SubCategory::all();
-      view("admin/product/create", compact("cats", "sub_cats", "errors"));
-      }else{
-      $getFile = new FileHandler();
-      // Move File
-      $getFile->move($file);
-      // Image Name
-      $fileName = $getFile->getFileName();
-      // iNsert iNto DB
-      $product = Product::create([
-        "category_id" => $post->cat_id,
-        "sub_category_id" => $post->sub_cat_id,
-        "name" => $post->name,
-        "price" => $post->price,
-        "content" => $post->content,
-        "image" => $fileName
-      ]);
-      if ($product) {
-        Session::flash("product_success","Product Created Successfully");
-        Redirect::redirect("/admin/product/show");
-      }
+        $cats = Category::all();
+        $sub_cats = SubCategory::all();
+        view("admin/product/create", compact("cats", "sub_cats", "errors"));
+      } else {
+        $getFile = new FileHandler();
+        // Move File
+        $getFile->move($file);
+        // Image Name
+        $fileName = $getFile->getFileName();
+        // iNsert iNto DB
+        $product = Product::create([
+          "category_id" => $post->cat_id,
+          "sub_category_id" => $post->sub_cat_id,
+          "name" => $post->name,
+          "price" => $post->price,
+          "content" => $post->content,
+          "image" => $fileName
+        ]);
+        if ($product) {
+          Session::flash("product_success", "Product Created Successfully");
+          Redirect::redirect("/admin/product/show");
+        }
       }
     }
   }
-  public function edit($id){
-    $product = Product::where('id',$id)->get();
+  public function edit($id) {
+    $product = Product::where('id', $id)->first();
     $cats = Category::all();
     $sub_cats = SubCategory::all();
     //beautify($product);
-  view("admin/product/edit", compact("cats", "sub_cats","product"));
-  
+    view("admin/product/edit", compact("cats", "sub_cats", "product"));
+
   }
+
+  public function update($id) {
+    $post = Request::get('post');
+    $file = Request::get('file');
+    $valid = new Validator();
+    $rules = [
+      "name" => ["string" => true],
+      "price" => ["number" => true]
+    ];
+    $valid->checkData($post, $rules);
+    if ($valid->hasErrors()) {
+      $errors = $valid->getErrors();
+      $cats = Category::all();
+      $sub_cats = SubCategory::all();
+      view("admin/product/create", compact("cats", "sub_cats", "errors"));
+    } else {
+        $getFile = new FileHandler();
+        // Move File
+        $getFile->move($file);
+        // Image Name
+        $fileName;
+        if(empty($file->file->name)){
+          $fileName = $post->old_file;
+        }else{
+          $fileName = <1getFile->
+            <getFileName></getFileName>
+          </1getFile->;
+        }
+        
+        // Update iNto DB
+        $product = Product::where("id",$id)->update([
+          "category_id" => $post->cat_id,
+          "sub_category_id" => $post->sub_cat_id,
+          "name" => $post->name,
+          "price" => $post->price,
+          "content" => $post->content,
+          "image" => $fileName
+        ]);
+        if ($product) { 
+          Session::flash("product_success", "Product Updated Successfully");
+          Redirect::redirect("/admin/product/show");
+        }
+      }
+    }
+
 }
