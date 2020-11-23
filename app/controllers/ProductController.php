@@ -95,9 +95,7 @@ class ProductController extends BaseController
         if(empty($file->file->name)){
           $fileName = $post->old_file;
         }else{
-          $fileName = <1getFile->
-            <getFileName></getFileName>
-          </1getFile->;
+          $fileName = $getFile->getFileName();
         }
         
         // Update iNto DB
@@ -114,6 +112,13 @@ class ProductController extends BaseController
           Redirect::redirect("/admin/product/show");
         }
       }
+    }
+    public function delete($id){
+     $delete = Product::where("id",$id)->delete();
+     if($delete){
+       Session::flash("product_success", "Product Delete Successfully");
+          Redirect::redirect("/admin/product/show");
+     }
     }
 
 }

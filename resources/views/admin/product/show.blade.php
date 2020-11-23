@@ -37,7 +37,7 @@
             </td>
             <td>
               <a class="btn btn-sm btn-info" href="<?php echo url("/admin/product/$product->id/edit"); ?>">Edit</a>
-              <a class="btn btn-sm btn-danger" href="">Delete</a>
+              <a class="btn btn-sm btn-danger" href="<?php echo url("/admin/product/$product->id/delete"); ?>">Delete</a>
             </td>
 
           </tr>
