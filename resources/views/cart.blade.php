@@ -21,11 +21,11 @@
           <th>Name</th>
           <th>Price</th>
           <th>Quantity</th>
+          <th colspan="2">Action</th>
           <th>Total</th>
-          <th colspan="2">Manage</th>
         </tr>
         <tbody id="tbody">
-          
+
         </tbody>
       </table>
       <div class="text-center">
@@ -41,47 +41,74 @@
     let data = getItems();
     axios({
       method: 'post',
-      url:"{{URL_ROOT}}/cart",
+      url: "{{URL_ROOT}}/cart",
       data: {
-        carts:data
+        carts: data
       }
     })
     .then(function(res) {
       saveProduct(res.data);
     })
   }
-  
-  function saveProduct(res){
-    localStorage.setItem("products",JSON.stringify(res));
+
+  function saveProduct(res) {
+    localStorage.setItem("products", JSON.stringify(res));
     let result = JSON.parse(localStorage.getItem("products"));
-     showProduct(result);
+    showProduct(result);
   }
-  function add($id){
-    
+  function add($id) {
+    let result = JSON.parse(localStorage.getItem("products"));
+    result.forEach((res)=> {
+      if (res.id === $id) {
+        res.qty = res.qty+1;
+      }
+    })
+    saveProduct(result);
   }
-  function reduce($id){
-    
+  function reduce($id) {
+    let result = JSON.parse(localStorage.getItem("products"));
+    result.forEach((res)=> {
+      if (res.id === $id) {
+        if(res.qty > 1){
+        res.qty = res.qty-1;
+        }
+      }
+    })
+    saveProduct(result);
   }
-function showProduct(data){
-  let str = "";
-  let tbody = document.querySelector("#tbody");
-  data.forEach((res)=>{
-   // console.log(res.id)
-    str += "<tr>";
+  function showProduct(data) {
+    let str = "";
+    let tbody = document.querySelector("#tbody");
+    data.forEach((res)=> {
+      // console.log(res.id)
+      str += `
+      <tr>
+      <td>${res.name}</td>
+      <td>${res.price}</td>
+      <td>${res.qty}</td>
+      <td colspan="2">
+      <button class="btn btn-success btn-sm" onclick="add(${res.id})">+</button>
+      <button class="btn btn-danger btn-sm" onclick="reduce(${res.id})">-</button>
+      </td>
+      <td>${res.qty * res.price}$</td>
+       <tr>
+      `;
+    })
     str += `
-    <td>${res.name}</td>
-    <td>${res.price}</td>
-    <td>${res.qty}</td>
-    <td>${res.qty * res.price}</td>
-    <td>
-    <button class="btn btn-success">+</button>
-    <button class="btn btn-danger">-</button>
+    <tr>
+    <td colspan="5" class="text-right">Grand Total</td>
+    <td>2000$</td>
+    </tr>
+      <tr>
+    <td colspan="6">
+    <button class="btn btn-success float-right">
+    Check Out
+    </button>
     </td>
+    </tr>
     `;
-    str += "</tr>";
-  })
-  tbody.innerHTML = str;
-}
+    tbody.innerHTML = str;
+  }
 
   loadProduct();
 </script>
