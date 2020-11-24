@@ -21,6 +21,7 @@ class IndexController extends BaseController
     $carts = [];
     foreach ($post->carts as $id){
       $product = Product::where('id',$id)->first();
+      $product->qty = 1;
       array_push($carts,$product);
     }
   $carts = json_encode($carts);
