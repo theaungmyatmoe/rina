@@ -18,13 +18,13 @@ class IndexController extends BaseController
 
   function cart() {
     $post = json_decode(file_get_contents("php://input"));
-    $products = [];
+    $carts = [];
     foreach ($post->carts as $id){
       $product = Product::where('id',$id)->first();
-      array_push($products,$product);
+      array_push($carts,$product);
     }
-  $products = json_encode($products);
-  echo $products;
+  $carts = json_encode($carts);
+  echo $carts;
   }
 
   function showCarts() {

@@ -44,9 +44,13 @@
       }
     })
     .then(function(res) {
+      clear();
       console.log(res.data);
     })
   }
+  
+  
+  
   loadProduct();
 </script>
 @endsection
