@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('title','Category')
 @section('content')
-<a class="btn btn-outline-success m-2" href="{{url("/cart/show")}}">
-  Cart
-  <span class="badge bg-danger" id="cart-length">0</span>
-</a>
 <div class="container my-5">
   @foreach($products as $product)
   <div class="row">

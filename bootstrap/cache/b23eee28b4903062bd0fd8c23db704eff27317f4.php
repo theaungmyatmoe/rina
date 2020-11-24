@@ -1,9 +1,5 @@
 <?php $__env->startSection('title','Category'); ?>
 <?php $__env->startSection('content'); ?>
-<a class="btn btn-outline-success m-2" href="<?php echo e(url("/cart/show")); ?>">
-  Cart
-  <span class="badge bg-danger" id="cart-length">0</span>
-</a>
 <div class="container my-5">
   <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <div class="row">

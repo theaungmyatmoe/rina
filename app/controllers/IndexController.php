@@ -28,7 +28,18 @@ class IndexController extends BaseController
   echo $carts;
   }
 
-  function showCarts() {
+  public function showCarts() {
     view("cart");
+  }
+  
+  public function checkout(){
+  $carts = json_decode(file_get_contents("php://input"));
+  if($this->order($carts->carts)){
+  echo  serialize($carts->carts);
+  }
+  }
+  function order($order){
+    serialize($order);
+    return true;
   }
 }

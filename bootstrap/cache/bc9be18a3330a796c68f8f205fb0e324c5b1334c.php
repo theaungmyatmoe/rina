@@ -39,6 +39,8 @@
 <?php $__env->startSection('scripts'); ?>
 <script>
   function loadProduct() {
+    let cartLength = document.querySelector("#cart-length");
+  cartLength.innerHTML = getItems().length;
     let data = getItems();
     axios({
       method: 'post',
@@ -104,7 +106,7 @@
     </tr>
       <tr>
     <td colspan="6">
-    <button class="btn btn-success float-right">
+    <button class="btn btn-success float-right" onclick="checkOut()">
     Check Out
     </button>
     </td>
@@ -112,7 +114,21 @@
     `;
     tbody.innerHTML = str;
   }
-
+  function checkOut() {
+    let data = JSON.parse(localStorage.getItem("products"));
+    axios({
+      method: 'post',
+      url: "<?php echo e(URL_ROOT); ?>/cart/checkout",
+      data: {
+        carts: data
+      }
+    })
+    .then(function(res) {
+      clear();
+      showProduct([]);
+     // location.href = "<?php echo e(URL_ROOT); ?>";
+    })
+  }
   loadProduct();
 </script>
 <?php $__env->stopSection(); ?>
