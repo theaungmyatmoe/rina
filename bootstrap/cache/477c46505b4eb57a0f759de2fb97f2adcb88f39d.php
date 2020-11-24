@@ -17,6 +17,7 @@
   <?php echo $__env->yieldContent('content'); ?>
   <script src="<?php echo e(asset('js/app.js')); ?>"></script>
   <script src="<?php echo e(asset('js/axios.js')); ?>"></script>
+  <script src="<?php echo e(asset('js/script.js')); ?>"></script>
   <?php echo $__env->yieldContent("scripts"); ?>
 </body>
 </html><?php /**PATH /storage/emulated/0/htdocs/E-Commerence/resources/views/layouts/app.blade.php ENDPATH**/ ?>

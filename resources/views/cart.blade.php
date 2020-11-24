@@ -18,38 +18,35 @@
 
       <table class="table table-bodered">
         <tr>
-          <th>#</th>
           <th>Name</th>
           <th>Price</th>
-          <th>Image</th>
           <th>Quantity</th>
           <th>Total</th>
           <th colspan="2">Manage</th>
         </tr>
-        <tbody>
-          @foreach($items as $product)
-          <tr>
-            <td>
-            {{$product->id}}
-            </td>
-            <td>{{$product->name}}</td>
-            <td>{{$product->price}}</td>
-            <td>
-              <img src="{{asset("uploads/".$product->image)}}" alt="Image Not Found" class="img-fluid">
-            </td>
-            <td>1</td>
-            <td>
-              <a class="btn btn-sm btn-danger" href="<?php echo url("/admin/product/$product->id/delete"); ?>">Delete</a>
-            </td>
-
-          </tr>
-          @endforeach
-        </tbody>
       </table>
-<div class="text-center">
-  {!! $pages !!}
-</div>
+      <div class="text-center">
+        {!! $pages !!}
+      </div>
     </div>
   </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+  function loadProduct() {
+    let data = getItems();
+    axios({
+      method: 'post',
+      url:"{{URL_ROOT}}/cart",
+      data: {
+        carts:data
+      }
+    })
+    .then(function(res) {
+      console.log(res.data);
+    })
+  }
+  loadProduct();
+</script>
 @endsection

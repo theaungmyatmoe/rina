@@ -6,28 +6,28 @@ use App\Classes\Request;
 use App\Classes\Session;
 class IndexController extends BaseController
 {
-  
-  public function show(){
+
+  public function show() {
     $products = Product::all();
-    list($products,$pages) = paginate(count($products),5,new Product);
+    list($products, $pages) = paginate(count($products), 5, new Product);
     $products = json_decode(json_encode($products));
-    view("home",compact("products","pages"));
+    view("home", compact("products", "pages"));
   }
-  function cart(){
-    $post = Request::get('post');
-     $ary = explode(',',$post->carts);
-    // beautify($ary);
-   Session::replace("carts",$ary);
-  }
-  function showCarts(){
-    $carts = Session::get('carts');
-    $items = [];
-    foreach ($carts as $cart){
-     $product = Product::where("id",$cart)->first();
-     array_push($items,$product);
+
+  // Cart Action
+
+  function cart() {
+    $post = json_decode(file_get_contents("php://input"));
+    $products = [];
+    foreach ($post->carts as $id){
+      $product = Product::where('id',$id)->first();
+      array_push($products,$product);
     }
-    $items = json_decode(json_encode($items));
-   // beautify($items);
-    view("cart",compact("items"));
+  $products = json_encode($products);
+  echo $products;
+  }
+
+  function showCarts() {
+    view("cart");
   }
 }
