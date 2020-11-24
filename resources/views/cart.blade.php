@@ -78,8 +78,10 @@
   }
   function showProduct(data) {
     let str = "";
+    let total = 0;
     let tbody = document.querySelector("#tbody");
     data.forEach((res)=> {
+      total += res.qty * res.price;
       // console.log(res.id)
       str += `
       <tr>
@@ -90,14 +92,14 @@
       <button class="btn btn-success btn-sm" onclick="add(${res.id})">+</button>
       <button class="btn btn-danger btn-sm" onclick="reduce(${res.id})">-</button>
       </td>
-      <td>${res.qty * res.price}$</td>
+      <td>${(res.qty * res.price).toFixed(2)}$</td>
        <tr>
       `;
     })
     str += `
     <tr>
     <td colspan="5" class="text-right">Grand Total</td>
-    <td>2000$</td>
+    <td>${total.toFixed(2)}$</td>
     </tr>
       <tr>
     <td colspan="6">
