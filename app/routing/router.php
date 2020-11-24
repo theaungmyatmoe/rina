@@ -13,7 +13,14 @@ $router->setBasePath('/E-Commerence/public');
 
 // method,uri,controller,route name
 
+//User Route
+
+$router->map('GET','/user/login','App\Controllers\UserController@show','User Login Form Route');
+$router->map('POST','/use/login','App\Controllers\UserController@login','User Login Route');
+
+// Home Route
 $router->map('GET','/','App\Controllers\IndexController@show','Home Route');
+
 $router->map('POST','/cart','App\Controllers\IndexController@cart','Cart Route');
 $router->map('GET','/cart/show','App\Controllers\IndexController@showCarts','Cart Show Route');
 $router->map('POST','/cart/checkout','App\Controllers\IndexController@checkout','Check Out');

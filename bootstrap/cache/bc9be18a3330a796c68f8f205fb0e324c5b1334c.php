@@ -106,7 +106,7 @@
     </tr>
       <tr>
     <td colspan="6">
-    <button class="btn btn-success float-right" onclick="checkOut()">
+    <a class="btn btn-success float-right" href="<?php echo e(url('/user/login')); ?>">
     Check Out
     </button>
     </td>
