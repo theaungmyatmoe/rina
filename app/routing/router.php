@@ -17,6 +17,7 @@ $router->setBasePath('/E-Commerence/public');
 
 $router->map('GET','/user/login','App\Controllers\UserController@show','User Login Form Route');
 $router->map('POST','/user/login','App\Controllers\UserController@login','User Login Route');
+$router->map('GET','/user/logout','App\Controllers\UserController@logout','User Logout Route');
 // Create
 $router->map('GET','/user/register','App\Controllers\UserController@registerForm','User registerForm Route');
 $router->map('POST','/user/register','App\Controllers\UserController@register','User register Route');

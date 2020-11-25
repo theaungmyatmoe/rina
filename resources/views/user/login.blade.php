@@ -4,6 +4,7 @@
 <div class="container my-5">
   <form action="" method="post">
     <h1 class="display-6 text-center">Login</h1>
+    @include('layouts.errors')
     @if(App\Classes\Session::has('status'))
     <div class="alert alert-success">
       {{App\Classes\Session::flash('status')}}

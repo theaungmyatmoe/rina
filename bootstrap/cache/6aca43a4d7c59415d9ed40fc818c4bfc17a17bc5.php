@@ -3,6 +3,7 @@
 <div class="container my-5">
   <form action="" method="post">
     <h1 class="display-6 text-center">Login</h1>
+    <?php echo $__env->make('layouts.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php if(App\Classes\Session::has('status')): ?>
     <div class="alert alert-success">
       <?php echo e(App\Classes\Session::flash('status')); ?>

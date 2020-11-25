@@ -3,7 +3,8 @@
 use Philo\Blade\Blade;
 use App\Classes\CSRF;
 use voku\helper\Paginator;
-
+use App\Classes\Session;
+use App\Models\User;
 /**
 * @return Blade
 * */
@@ -69,4 +70,12 @@ function paginate($total,$record,$obj) {
   $links = $pages->page_links();
   return [$categories,
     $links];
+}
+
+function check(){
+  return Session::has('user_id');
+}
+
+function user(){
+ return User::where('id',Session::get('user_id'))->first();
 }

@@ -20,12 +20,19 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
+            @if(check())
+            {{user()->name}}
+            @else
+            Member
+            @endif
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            @if(check())
+            <a class="dropdown-item" href="{{url('/user/logout')}}">Logout</a>
+            @else
+            <a class="dropdown-item" href="{{url('/user/register')}}">Register</a>
+            <a class="dropdown-item" href="{{url('/user/login')}}">Login</a>
+            @endif
           </div>
         </li>
       </ul>

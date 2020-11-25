@@ -20,12 +20,20 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
+            <?php if(check()): ?>
+            <?php echo e(user()->name); ?>
+
+            <?php else: ?>
+            Member
+            <?php endif; ?>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <?php if(check()): ?>
+            <a class="dropdown-item" href="<?php echo e(url('/user/logout')); ?>">Logout</a>
+            <?php else: ?>
+            <a class="dropdown-item" href="<?php echo e(url('/user/register')); ?>">Register</a>
+            <a class="dropdown-item" href="<?php echo e(url('/user/login')); ?>">Login</a>
+            <?php endif; ?>
           </div>
         </li>
       </ul>
