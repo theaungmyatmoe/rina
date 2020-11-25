@@ -1,4 +1,3 @@
-
 // Add To Cart Action
 function addToCart(id) {
   // Get Stroage Item
@@ -29,4 +28,16 @@ function getItems() {
 // Clear LoaclStorage
 function clear() {
   localStorage.removeItem("items");
+}
+
+function deleteItem(id) {
+  let arys = JSON.parse(localStorage.getItem("items"));
+  arys.forEach((res)=> {
+    if (res == id) {
+      let ind = arys.indexOf(res);
+      arys.splice(ind, 1);
+    }
+  })
+  localStorage.setItem("items",
+    JSON.stringify(arys));
 }

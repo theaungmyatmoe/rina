@@ -39,7 +39,7 @@
 <script>
   function loadProduct() {
     let cartLength = document.querySelector("#cart-length");
-  cartLength.innerHTML = getItems().length;
+    cartLength.innerHTML = getItems().length;
     let data = getItems();
     axios({
       method: 'post',
@@ -71,8 +71,8 @@
     let result = JSON.parse(localStorage.getItem("products"));
     result.forEach((res)=> {
       if (res.id === $id) {
-        if(res.qty > 1){
-        res.qty = res.qty-1;
+        if (res.qty > 1) {
+          res.qty = res.qty-1;
         }
       }
     })
@@ -93,9 +93,10 @@
       <td colspan="2">
       <button class="btn btn-success btn-sm" onclick="add(${res.id})">+</button>
       <button class="btn btn-danger btn-sm" onclick="reduce(${res.id})">-</button>
+      <button class="btn btn-danger btn-sm mt-3" onclick="removeItems(${res.id})">Remove</button>
       </td>
       <td>${(res.qty * res.price).toFixed(2)}$</td>
-       <tr>
+      <tr>
       `;
     })
     str += `
@@ -103,7 +104,7 @@
     <td colspan="5" class="text-right">Grand Total</td>
     <td>${total.toFixed(2)}$</td>
     </tr>
-      <tr>
+    <tr>
     <td colspan="6">
     <a class="btn btn-success float-right" href="{{url('/user/login')}}">
     Check Out
@@ -113,6 +114,19 @@
     `;
     tbody.innerHTML = str;
   }
+  function removeItems(id) {
+    let results = JSON.parse(localStorage.getItem("products"));
+    results.forEach(res=> {
+      if (res.id === id) {
+        let index = results.indexOf(res);
+        results.splice(index, 1);
+      }
+    })
+    deleteItem(id);
+    saveProduct(results);
+  }
+  
+
   function checkOut() {
     let data = JSON.parse(localStorage.getItem("products"));
     axios({
@@ -125,7 +139,7 @@
     .then(function(res) {
       clear();
       showProduct([]);
-     // location.href = "{{URL_ROOT}}";
+      // location.href = "{{URL_ROOT}}";
     })
   }
   loadProduct();
