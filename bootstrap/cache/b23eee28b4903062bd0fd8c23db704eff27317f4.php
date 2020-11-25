@@ -10,11 +10,11 @@
 
         </div>
         <div class="card-body">
-          <!--img src='<?php echo e(asset("uploads/$product->image")); ?>' alt="Image Not Found" class="img-fluid"-->
+          <img src='<?php echo e(asset("uploads/$product->image")); ?>' alt="Image Not Found" class="img-fluid">
         </div>
       </div>
       <div class="card-footer d-flex justify-content-between">
-        <a href="" class="btn btn-info">
+        <a href="<?php echo e(url("/product/$product->id/detail")); ?>" class="btn btn-info">
           Detail
         </a>
         <span>

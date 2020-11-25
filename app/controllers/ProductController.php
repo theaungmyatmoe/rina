@@ -87,38 +87,41 @@ class ProductController extends BaseController
       $sub_cats = SubCategory::all();
       view("admin/product/create", compact("cats", "sub_cats", "errors"));
     } else {
-        $getFile = new FileHandler();
-        // Move File
-        $getFile->move($file);
-        // Image Name
-        $fileName;
-        if(empty($file->file->name)){
-          $fileName = $post->old_file;
-        }else{
-          $fileName = $getFile->getFileName();
-        }
-        
-        // Update iNto DB
-        $product = Product::where("id",$id)->update([
-          "category_id" => $post->cat_id,
-          "sub_category_id" => $post->sub_cat_id,
-          "name" => $post->name,
-          "price" => $post->price,
-          "content" => $post->content,
-          "image" => $fileName
-        ]);
-        if ($product) { 
-          Session::flash("product_success", "Product Updated Successfully");
-          Redirect::redirect("/admin/product/show");
-        }
+      $getFile = new FileHandler();
+      // Move File
+      $getFile->move($file);
+      // Image Name
+      $fileName;
+      if (empty($file->file->name)) {
+        $fileName = $post->old_file;
+      } else {
+        $fileName = $getFile->getFileName();
+      }
+
+      // Update iNto DB
+      $product = Product::where("id", $id)->update([
+        "category_id" => $post->cat_id,
+        "sub_category_id" => $post->sub_cat_id,
+        "name" => $post->name,
+        "price" => $post->price,
+        "content" => $post->content,
+        "image" => $fileName
+      ]);
+      if ($product) {
+        Session::flash("product_success", "Product Updated Successfully");
+        Redirect::redirect("/admin/product/show");
       }
     }
-    public function delete($id){
-     $delete = Product::where("id",$id)->delete();
-     if($delete){
-       Session::flash("product_success", "Product Delete Successfully");
-          Redirect::redirect("/admin/product/show");
-     }
+  }
+  public function delete($id) {
+    $delete = Product::where("id", $id)->delete();
+    if ($delete) {
+      Session::flash("product_success", "Product Delete Successfully");
+      Redirect::redirect("/admin/product/show");
     }
-
+  }
+  function detail($id) {
+    $product = Product::where('id',$id)->first();
+    view('detail',compact('product'));
+  }
 }

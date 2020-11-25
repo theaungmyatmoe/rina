@@ -49,5 +49,7 @@ $router->map('GET','/admin/product/[i:id]/edit','App\Controllers\ProductControll
 $router->map('POST','/admin/product/[i:id]/edit','App\Controllers\ProductController@update','Product Upadte');
 $router->map('GET','/admin/product/[i:id]/delete','App\Controllers\ProductController@delete','Product Delete');
 
+$router->map('GET','/product/[i:id]/detail','App\Controllers\ProductController@detail','Product Detail');
+
 
 new RouterDispatcher($router);
