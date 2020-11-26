@@ -126,6 +126,7 @@
     saveProduct(results);
   }
   
+  // Payput
 
   function checkOut() {
     let data = JSON.parse(localStorage.getItem("products"));
@@ -142,6 +143,7 @@
       // location.href = "{{URL_ROOT}}";
     })
   }
+  
   loadProduct();
 </script>
 @endsection

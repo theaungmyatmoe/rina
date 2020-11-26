@@ -127,6 +127,7 @@
     saveProduct(results);
   }
   
+  // Payput
 
   function checkOut() {
     let data = JSON.parse(localStorage.getItem("products"));
@@ -143,6 +144,7 @@
       // location.href = "<?php echo e(URL_ROOT); ?>";
     })
   }
+  
   loadProduct();
 </script>
 <?php $__env->stopSection(); ?>

@@ -29,3 +29,6 @@ composer install
 APP_DEBUG=Off
 
 ```
+## Status
+
+- Finished
