@@ -18,20 +18,20 @@ composer install
 
 ```
 
-.env.example -> .env
+cp .env.example .env
 
 ```
 
 ## Production
 
-```
+```env
 
 APP_DEBUG=Off
 
 ```
 ## Status
 
-- Finished
++ Finished
 
 ## Directory Structure
 
