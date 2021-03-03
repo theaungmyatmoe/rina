@@ -1,5 +1,5 @@
 # E-commerce
-E-commerce site using custom php MVC.
+E-commerce site using custom php MVC framework.
 
 # Requirements
 
