@@ -1,3 +1,4 @@
+# This project is not compatible with `PHP-8`.
 # E-commerce
 E-commerce site using custom php MVC framework.
 
