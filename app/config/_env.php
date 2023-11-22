@@ -1,4 +1,6 @@
 <?php
 
-$dotenv = \Dotenv\Dotenv::createUnsafeImmutable(APP_ROOT);
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createUnsafeImmutable(APP_ROOT);
 $dotenv->load();
